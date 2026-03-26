@@ -1,3 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg-gradient-start: #0f0c29;
+  --bg-gradient-mid: #302b63;
+  --bg-gradient-end: #24243e;
+  --card-bg: rgba(255, 255, 255, 0.06);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --text-primary: #f0f0f5;
+  --text-secondary: #a0a0b8;
+  --accent: #7c3aed;
+  --accent-hover: #6d28d9;
+  --accent-glow: rgba(124, 58, 237, 0.35);
+  --success-bg: rgba(16, 185, 129, 0.15);
+  --success-border: rgba(16, 185, 129, 0.3);
+  --success-text: #6ee7b7;
+  --error-bg: rgba(239, 68, 68, 0.15);
+  --error-border: rgba(239, 68, 68, 0.3);
+  --error-text: #fca5a5;
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
+  --radius: 1rem;
+  --radius-sm: 0.5rem;
+  --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 *,
 ::after,
 ::before {
@@ -7,38 +33,77 @@
 }
 
 body {
-  background: #eee;
-  font-family: Helvetica, sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-mid), var(--bg-gradient-end));
+  background-attachment: fixed;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   font-weight: 400;
-  line-height: 1.2;
-  color: #222;
+  line-height: 1.5;
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .section-center {
   margin: 0 auto;
-  margin-top: 8rem;
-  max-width: 30rem;
-  background: #fff;
-  border-radius: 0.25rem;
-  padding: 2rem;
+  margin-top: 6rem;
+  margin-bottom: 4rem;
+  max-width: 34rem;
+  width: 90%;
+  background: var(--card-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 2.5rem 2rem;
   position: relative;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  animation: fadeSlideUp 0.5s ease-out;
 }
 
-/* .... existing styles .... */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
+/* Alerts */
 .alert {
-  padding: 0.75rem 1rem;
-  margin-bottom: 1rem;
-  border-radius: 0.25rem;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1.25rem;
+  border-radius: var(--radius-sm);
   text-align: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+  animation: alertSlide 0.35s ease-out;
+}
+
+@keyframes alertSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .alert-success {
-  background: #d1fae5;
-  color: #065f46;
+  background: var(--success-bg);
+  border: 1px solid var(--success-border);
+  color: var(--success-text);
 }
 
 .alert-error {
-  background: #fee2e2;
-  color: #991b1b;
+  background: var(--error-bg);
+  border: 1px solid var(--error-border);
+  color: var(--error-text);
 }

@@ -1,42 +1,108 @@
 .single-item {
   display: grid;
   grid-template-columns: auto 1fr auto auto;
-  column-gap: 1rem;
+  column-gap: 0.75rem;
   align-items: center;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid transparent;
+  transition: var(--transition);
+  animation: itemFadeIn 0.3s ease-out;
+}
+
+@keyframes itemFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.single-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--card-border);
 }
 
 .single-item p {
   text-transform: capitalize;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  transition: var(--transition);
 }
 
+.single-item p.completed {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+
+/* Custom Checkbox */
 .single-item input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   cursor: pointer;
-  width: 1rem;
-  height: 1rem;
+  width: 1.125rem;
+  height: 1.125rem;
+  border: 2px solid var(--text-secondary);
+  border-radius: 4px;
+  background: transparent;
+  position: relative;
+  transition: var(--transition);
 }
 
+.single-item input[type="checkbox"]:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.single-item input[type="checkbox"]:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.7rem;
+  color: #fff;
+  font-weight: 700;
+}
+
+.single-item input[type="checkbox"]:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* Action Buttons */
 .single-item .btn {
   cursor: pointer;
-  color: #fff;
-  background: #06b6d4;
-  border: transparent;
-  border-radius: 0.25rem;
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.5rem;
+  font-size: 0.875rem;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  transition: var(--transition);
 }
 
-.single-item .btn:hover {
-  background: #0e7490;
+.single-item .edit-btn:hover {
+  color: var(--accent);
+  background: rgba(124, 58, 237, 0.12);
 }
 
 .single-item .remove-btn {
-  background: #222;
+  color: var(--text-secondary);
 }
 
 .single-item .remove-btn:hover {
-  background: #900e0e;
+  color: var(--danger);
+  background: rgba(239, 68, 68, 0.12);
 }

@@ -4,18 +4,21 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Grocery Bud - Django</title>
+    <meta name="description" content="Grocery Bud — a simple, beautiful grocery list manager built with Django." />
+    <title>Grocery Bud — Django</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛒</text></svg>" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="{% static 'grocery/css/global.css' %}" />
-    <link rel="stylesheet" href="{% static 'grocery/css/single-item.css' %}" />
-    <link rel="stylesheet" href="{% static 'grocery/css/items.css' %}" />
     <link rel="stylesheet" href="{% static 'grocery/css/form.css' %}" />
+    <link rel="stylesheet" href="{% static 'grocery/css/items.css' %}" />
+    <link rel="stylesheet" href="{% static 'grocery/css/single-item.css' %}" />
 </head>
 <body>
+
 <section class="section-center">
 
-    <!-- Messages -->
+    <!-- Flash Messages -->
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-{{ message.tags }}">
@@ -30,21 +33,38 @@
         {% csrf_token %}
         <h2>grocery bud</h2>
         <div class="form-control">
-            <input type="text" name="name" class="form-input" placeholder="e.g. eggs"
-                   value="{{ edit_item.name|default:'' }}" {% if edit_item %}autofocus{% endif %} required />
-            <button type="submit" class="btn">{% if edit_item %}edit item{% else %}add item{% endif %}</button>
+            <input type="text"
+                   id="grocery-input"
+                   name="name"
+                   class="form-input"
+                   placeholder="e.g. eggs"
+                   value="{{ edit_item.name|default:'' }}"
+                   {% if edit_item %}autofocus{% endif %}
+                   required />
+            <button type="submit" id="submit-btn" class="btn">
+                {% if edit_item %}edit{% else %}add{% endif %}
+            </button>
         </div>
     </form>
 
     <!-- Items List -->
+    {% if items %}
     <div class="items">
+        <div class="items-header">
+            <h4>Your Items</h4>
+            <span class="items-count">{{ items|length }} item{{ items|length|pluralize }}</span>
+        </div>
+
         {% for item in items %}
-        <div class="single-item">
+        <div class="single-item" id="item-{{ item.id }}">
 
             <!-- Toggle Completed -->
             <form method="POST" action="{% url 'grocery:toggle' item.id %}" style="display:inline;">
                 {% csrf_token %}
-                <input type="checkbox" {% if item.completed %}checked{% endif %} onchange="this.form.submit()" />
+                <input type="checkbox"
+                       id="check-{{ item.id }}"
+                       {% if item.completed %}checked{% endif %}
+                       onchange="this.form.submit()" />
             </form>
 
             <!-- Item Name -->
@@ -53,24 +73,29 @@
             </p>
 
             <!-- Edit Button -->
-            <a href="{% url 'grocery:edit' item.id %}" class="btn icon-btn edit-btn">
+            <a href="{% url 'grocery:edit' item.id %}" class="btn icon-btn edit-btn" title="Edit">
                 <i class="fa-regular fa-pen-to-square"></i>
             </a>
 
             <!-- Delete Button -->
             <form method="POST" action="{% url 'grocery:delete' item.id %}" style="display:inline;">
                 {% csrf_token %}
-                <button type="submit" class="btn icon-btn remove-btn">
+                <button type="submit" class="btn icon-btn remove-btn" title="Delete">
                     <i class="fa-regular fa-trash-can"></i>
                 </button>
             </form>
 
         </div>
-        {% empty %}
-        <p style="text-align:center; color:#888;">No items yet. Add one above!</p>
         {% endfor %}
     </div>
+    {% else %}
+    <div class="items" style="text-align:center; padding: 2rem 0;">
+        <p style="font-size: 2.5rem; margin-bottom: 0.5rem;">🛒</p>
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">No items yet. Add one above!</p>
+    </div>
+    {% endif %}
 
 </section>
+
 </body>
 </html>
