@@ -17,6 +17,7 @@ body {
 .section-center {
   margin: 0 auto;
   margin-top: 8rem;
+  margin-bottom: 4rem;
   max-width: 30rem;
   width: 90%;
   background: #fff;
