@@ -31,6 +31,7 @@
   padding-bottom: 0.75rem;
   border-bottom: 1px solid #eee;
   justify-content: center;
+  transition: background 0.2s ease;
 }
 
 .single-item .remove-btn {
