@@ -40,3 +40,8 @@
 .single-item .remove-btn:hover {
   background: #b91c1c;
 }
+
+.single-item .completed {
+  text-decoration: line-through;
+  color: #999;
+}
