@@ -32,3 +32,11 @@
 .single-item .remove-btn {
   background: #222;
 }
+
+.single-item .btn:hover {
+  opacity: 0.85;
+}
+
+.single-item .remove-btn:hover {
+  background: #b91c1c;
+}
