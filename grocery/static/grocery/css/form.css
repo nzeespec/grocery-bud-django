@@ -37,3 +37,8 @@ form h2 {
 .form-control .btn:hover {
   background: #3d8bc9;
 }
+
+.form-input:focus {
+  border-color: #49a6e9;
+  box-shadow: 0 0 0 2px rgba(73, 166, 233, 0.2);
+}
